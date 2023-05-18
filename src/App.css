@@ -1,0 +1,121 @@
+#hero {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    width: 100%;
+    gap: 1.4rem;
+    background: var(--clr-white);
+    margin: 0 auto;
+    border-radius: 30px 30px 100px 30px;
+    padding: 2rem;
+    padding-top: 3rem;
+}
+
+/* Form */
+
+.age-form-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+.age-form {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    gap: 20px;
+}
+
+.input-container {
+    display: flex;
+    flex-direction: column;
+    width: 30%;
+    gap: 0.5rem;
+}
+
+.label {
+    font-weight: 500;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    color: var(--clr-smokey-grey);
+    line-height: 1rem;
+}
+
+.input {
+    color: var(--clr-off-black);
+    font-size: 1.4rem;
+    padding: 0.5rem;
+    font-weight: 800;
+    color: #000;
+    border-radius: 5px;
+    border: 1px solid var(--clr-light-grey);
+    outline: none;
+}
+
+/*  End For */
+
+/* Divider */
+.devider-container {
+    width: 100%;
+    position: relative;
+}
+
+.devider-container::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 1px;
+    background: var(--clr-light-grey);
+}
+
+.arrow-down {
+    background: var(--clr-primary);
+    position: relative;
+    display: flex;
+    width: 60px;
+    height: 60px;
+    margin: 0 auto;
+    border-radius: 50%;
+    z-index: 1;
+}
+
+.arrow-down svg {
+    width: 26px;
+    height: 24px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.arrow-down svg g {
+    stroke-width: 4;
+}
+/* End Divider */
+
+/* Result */
+.results-container {
+    margin-top: 15px;
+}
+
+.result-box {
+    font-size: 3rem;
+    font-weight: 800;
+    font-style: italic;
+    margin-top: -15px;
+}
+
+.result-number {
+    color: var(--clr-primary);
+}
+/* End Result */
