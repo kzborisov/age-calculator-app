@@ -1,69 +1,47 @@
 import { useState, ChangeEvent, useEffect } from "react";
 import "./App.css";
-import { ReactComponent as ArrowDown } from "./assets/images/icon-arrow.svg";
+
+interface ageI {
+    years: number;
+    months: number;
+    days: number;
+}
 
 function App() {
     const [bDay, setBDay] = useState("");
     const [bMonth, setBMonth] = useState("");
     const [bYear, setBYear] = useState("");
+    const [age, setAge] = useState<ageI>();
 
-    const [dayRes, setDayRes] = useState("--");
-    const [monthRes, setMonthRes] = useState("--");
-    const [yearRes, setYearRes] = useState("--");
-
-    const getYearsGap = (today: Date, birthDate: Date) => {
-        if (
-            today.getMonth() > birthDate.getMonth() ||
-            (today.getMonth() == birthDate.getMonth() &&
-                today.getDate() >= birthDate.getDate())
-        ) {
-            return today.getFullYear() - birthDate.getFullYear();
-        } else {
-            return today.getFullYear() - birthDate.getFullYear() - 1;
-        }
+    const calculateAge = (birthday: Date) => {
+        const today = new Date();
+        const diff = Number(today) - Number(birthday);
+        const ageInSeconds = new Date(diff);
+        const years = Math.abs(ageInSeconds.getUTCFullYear() - 1970);
+        const months = Math.abs(ageInSeconds.getUTCMonth());
+        const days = Math.abs(ageInSeconds.getUTCDate() - 1);
+        return { years, months, days };
     };
 
-    const getMonthsGap = (today: Date, birthDate: Date) => {
-        let months;
-        if (today.getDate() >= birthDate.getDate()) {
-            months = today.getMonth() - birthDate.getMonth();
-        } else if (today.getDate() < birthDate.getDate()) {
-            months = today.getMonth() - birthDate.getMonth() - 1;
-        }
-        // make month positive
-        return months < 0 ? months + 12 : months;
-    };
-
-    const getDaysGap = (today: Date, birthDate: Date) => {
-        const monthDays = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
-        if (today.getDate() >= birthDate.getDate()) {
-            return today.getDate() - birthDate.getDate();
-        } else {
-            return (
-                today.getDate() -
-                birthDate.getDate() +
-                monthDays[birthDate.getMonth()]
-            );
-        }
-    };
+    function isValidDate(bDateString: string) {
+        const regEx = /([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]))/;
+        console.log(bDateString);
+        if (!bDateString.match(regEx)) return false;
+        return true;
+    }
 
     useEffect(() => {
-        const dateStr = `${bMonth}/${bDay}/${bYear}`;
-        const birthDate = new Date(dateStr);
-        const today = new Date();
+        const bDateString = `${bYear}-${bMonth}-${bDay}`;
+        if (!isValidDate(bDateString)) {
+            return;
+        }
 
-        setYearRes(getYearsGap(today, birthDate).toString());
-        // setMonthRes(getMonthsGap(today, birthDate).toString());
-        setDayRes(getDaysGap(today, birthDate).toString());
-
-        // const year = elapsed.getFullYear();
-        // const month = elapsed.getMonth();
-        // const day = elapsed.getDay();
-        // console.log(day, month, year);
+        const birthday = new Date(bDateString);
+        const age = calculateAge(birthday);
+        setAge(age);
     }, [bDay, bMonth, bYear]);
 
-    console.log(yearRes, monthRes, dayRes);
-
+    console.log();
     const changeDay = (e: ChangeEvent<HTMLInputElement>) => {
         setBDay(e.target.value);
     };
@@ -76,6 +54,7 @@ function App() {
         setBYear(e.target.value);
     };
 
+    console.log(age);
     return (
         <>
             <section id='hero'>
@@ -89,6 +68,7 @@ function App() {
                                 id='day'
                                 className='input'
                                 onChange={changeDay}
+                                placeholder='DD'
                             />
                         </div>
 
@@ -103,6 +83,7 @@ function App() {
                                 id='month'
                                 className='input'
                                 onChange={changeMonth}
+                                placeholder='MM'
                             />
                         </div>
                         <div className='input-container'>
@@ -113,6 +94,7 @@ function App() {
                                 id='year'
                                 className='input'
                                 onChange={changeYear}
+                                placeholder='YYYY'
                             />
                         </div>
                     </form>
@@ -120,23 +102,40 @@ function App() {
 
                 <div className='devider-container'>
                     <div className='arrow-down'>
-                        <ArrowDown />
+                        <svg
+                            xmlns='http://www.w3.org/2000/svg'
+                            width='46'
+                            height='44'
+                            viewBox='0 0 46 44'
+                        >
+                            <g fill='none' stroke='#FFF' strokeWidth='3'>
+                                <path d='M1 22.019C8.333 21.686 23 25.616 23 44M23 44V0M45 22.019C37.667 21.686 23 25.616 23 44' />
+                            </g>
+                        </svg>
                     </div>
                 </div>
 
                 <div className='results-container'>
-                    <h4 className='result-box'>
-                        <span className='result-number'>{yearRes}</span>{" "}
+                    <h1 className='result-box'>
+                        <span className='result-number'>
+                            {age ? age.years : "--"}
+                        </span>{" "}
                         <span className='result-text'>years</span>
-                    </h4>
-                    <h4 className='result-box'>
-                        <span className='result-number'>{monthRes}</span>{" "}
+                    </h1>
+                    <h1 className='result-box'>
+                        <span className='result-number'>
+                            {" "}
+                            {age ? age.months : "--"}
+                        </span>{" "}
                         <span className='result-text'>months</span>
-                    </h4>
-                    <h4 className='result-box'>
-                        <span className='result-number'>{dayRes}</span>{" "}
+                    </h1>
+                    <h1 className='result-box'>
+                        <span className='result-number'>
+                            {" "}
+                            {age ? age.days : "--"}
+                        </span>{" "}
                         <span className='result-text'>days</span>
-                    </h4>
+                    </h1>
                 </div>
             </section>
         </>
