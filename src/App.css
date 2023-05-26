@@ -26,7 +26,15 @@
     display: flex;
     align-items: center;
     justify-content: space-evenly;
+    flex-direction: column;
     gap: 20px;
+}
+
+.input-box {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    width: 100%;
 }
 
 .input-container {
@@ -54,6 +62,15 @@
     border-radius: 5px;
     border: 1px solid var(--clr-light-grey);
     outline: none;
+}
+
+.input:focus {
+    /* outline: var(--clr-primary); */
+    border: 1px solid var(--clr-primary);
+}
+
+.input.invalid {
+    border: 1px solid var(--clr-light-red);
 }
 
 /*  End For */
@@ -84,6 +101,13 @@
     margin: 0 auto;
     border-radius: 50%;
     z-index: 1;
+    outline: none;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease-out;
+}
+.arrow-down:hover {
+    transform: rotate(360deg);
 }
 
 .arrow-down svg {
