@@ -12,6 +12,22 @@
     padding-top: 3rem;
 }
 
+@media only screen and (min-width: 375px) {
+    #hero {
+        width: 90%;
+    }
+}
+
+@media only screen and (min-width: 992px) {
+    #hero {
+        width: 800px;
+    }
+
+    .arrow-down {
+        float: right;
+    }
+}
+
 /* Form */
 
 .age-form-container {
@@ -51,6 +67,10 @@
     font-size: 0.8rem;
     color: var(--clr-smokey-grey);
     line-height: 1rem;
+}
+
+.label.invalid {
+    color: var(--clr-light-red);
 }
 
 .input {

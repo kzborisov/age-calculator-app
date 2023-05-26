@@ -102,7 +102,9 @@ function App() {
                             <div className='input-container'>
                                 <label
                                     htmlFor='day'
-                                    className='label label-day'
+                                    className={`label label-day ${
+                                        dayInvalid && "invalid"
+                                    }`}
                                 >
                                     Day
                                 </label>
@@ -119,7 +121,9 @@ function App() {
                             <div className='input-container'>
                                 <label
                                     htmlFor='month'
-                                    className='label label-month'
+                                    className={`label label-month ${
+                                        monthInvalid && "invalid"
+                                    }`}
                                 >
                                     Month
                                 </label>
@@ -135,7 +139,8 @@ function App() {
                             <div className='input-container'>
                                 <label
                                     htmlFor='year'
-                                    className='label label-year'
+                                    className={`label label-year
+                                    ${yearInvalid && "invalid"}`}
                                 >
                                     Year
                                 </label>
